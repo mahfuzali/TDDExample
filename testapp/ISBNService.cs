@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace testapp
@@ -44,15 +41,15 @@ namespace testapp
         and subtracting this value from 10, and then taking the
         modulo 10 of the result again to produce a single digit.
 
-
         Basic task:
         Create a function that takes a string and returns true
         if that is a valid ISBN-13 and false otherwise.
 
         Advanced task:
         Also return true if the string is a valid ISBN-10.
-     * 
+     *
      */
+
     public class ISBNService
     {
         public static string ISBN10WithoutSpace = "0471958697";
@@ -68,11 +65,11 @@ namespace testapp
 
         public bool IsValidISBN(string inputISBN)
         {
-            inputISBN = Regex.Replace(inputISBN, @"[\s+@-]", "", RegexOptions.None, TimeSpan.FromSeconds(1.5)); 
-            //inputISBN = inputISBN.Replace(" ", String.Empty).Replace("-", String.Empty);
+            inputISBN = Regex.Replace(inputISBN, @"[\s+@-]", "", RegexOptions.None, TimeSpan.FromSeconds(1.5));
+
             if (inputISBN.Length == 10)
             {
-                if(CalculateISBN10CheckDigit(inputISBN))
+                if (CalculateISBN10CheckDigit(inputISBN))
                 {
                     return true;
                 }
@@ -87,20 +84,19 @@ namespace testapp
 
             return false;
         }
-
         public bool CalculateISBN10CheckDigit(string isbn10Input)
         {
             char[] isbntoChars = isbn10Input.ToCharArray();
             int sum = 0;
 
-            for(int index = 0; index < isbntoChars.Length - 1; index++)
+            for (int index = 0; index < isbntoChars.Length - 1; index++)
             {
-                int multiply = (int)char.GetNumericValue(isbntoChars[index]) * (index+1);
-                sum = sum + multiply; 
+                int multiply = (int)char.GetNumericValue(isbntoChars[index]) * (index + 1);
+                sum = sum + multiply;
             }
 
             int modOfISbn = (sum % 11);
-            if ( ((int)char.GetNumericValue(isbntoChars[isbntoChars.Length - 1]) == modOfISbn) ||
+            if (((int)char.GetNumericValue(isbntoChars[isbntoChars.Length - 1]) == modOfISbn) ||
                  ((modOfISbn == 10) && isbntoChars[isbntoChars.Length - 1] == 'X')
                 )
             {
@@ -110,7 +106,6 @@ namespace testapp
             return false;
         }
 
-
         public bool CalculateISBN13CheckDigit(string isbn13Input)
         {
             char[] isbntoChars = isbn13Input.ToCharArray();
@@ -119,14 +114,14 @@ namespace testapp
             int alternate = 1;
             for (int index = 0; index < isbntoChars.Length; index++)
             {
-                if(alternate == 1)
+                if (alternate == 1)
                 {
                     int multiply = (int)char.GetNumericValue(isbntoChars[index]) * alternate;
                     sum = sum + multiply;
 
                     alternate = 3;
                 }
-                else if(alternate == 3)
+                else if (alternate == 3)
                 {
                     int multiply = (int)char.GetNumericValue(isbntoChars[index]) * alternate;
                     sum = sum + multiply;

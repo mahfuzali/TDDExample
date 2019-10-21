@@ -67,7 +67,6 @@ namespace testapp
         private const decimal PriceOfOneBook = 8M;
         private const decimal FivePercentDiscount = 0.05M;
         private const decimal TenPercentDiscount = 0.10M;
-
         private const decimal TwentyPercentDiscount = 0.20M;
         private const decimal TwentyFivePercentDiscount = 0.25M;
 
